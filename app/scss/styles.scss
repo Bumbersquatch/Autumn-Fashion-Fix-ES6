@@ -218,3 +218,13 @@ nav.navbar.bg-dark{
     }
 }
 
+@include media-breakpoint-up(md) { 
+    #affCarousel .event-info{
+      width: 60%;
+    }
+}
+@include media-breakpoint-up(lg) { 
+    #affCarousel .event-info{
+      width: 80%;
+    }
+}

@@ -1,11 +1,7 @@
-import jQueryBridget from 'jquery-bridget';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 import Layzr from 'layzr.js';
 
-
-// make Masonry a jQuery plugin
-//jQueryBridget('masonry', Masonry, $);
 imagesLoaded.makeJQueryPlugin($);
 
 const PostModule = {

@@ -123,7 +123,7 @@
                     {{#items}}
                         {{#eq this.service_slug 'twitter'}}
                             <!-- Twitter Post -->
-                            <article class="col-12 col-md-4 grid-item twitter-post">
+                            <article class="col-12 col-md-6 col-lg-4 grid-item twitter-post">
                             
                             <div class="card card-block text-center">
                                 <div class="post-type"><i class="fab fa-twitter"></i></div>
@@ -140,7 +140,7 @@
                         </article>
                         {{else eq this.service_slug 'instagram'}}
                         <!-- IG Post -->
-                        <article class="col-12 col-md-4 grid-item instagram-post">
+                        <article class="col-12 col-md-6 col-lg-4 grid-item instagram-post">
                             <div class="card">
                                 <div class="post-type"><i class="fab fa-instagram"></i></div>
                                 <a href="{{this.item_data.link}}"><img class="card-img-top img-fluid" data-normal="{{this.item_data.link}}media/?size=l" alt="Card image cap"></a>
@@ -153,7 +153,7 @@
                         </article>
                         {{else}}
                         <!-- Manual Post -->
-                        <article class="col-12 col-md-4 grid-item manual-post">
+                        <article class="col-12 col-md-6 grid-item manual-post">
                             <div class="card">
                                 <div class="post-type">AFF</div>
                                 <a href="{{this.item_data.link}}" target="_blank">
