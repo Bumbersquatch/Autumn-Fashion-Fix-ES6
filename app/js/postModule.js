@@ -169,7 +169,7 @@ const PostModule = {
         this.s.loading.show();
         this.s.moreButton.attr('disabled', 'disabled');
         $.ajax({
-            url: 'http://private-cc77e-aff.apiary-mock.com/posts',
+            url: 'https://private-cc77e-aff.apiary-mock.com/posts',
             data: {
                 page: page,
                 numPosts: num
