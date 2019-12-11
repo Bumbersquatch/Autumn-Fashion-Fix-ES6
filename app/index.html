@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bullring Birmingham - Autumn Fashion Fix</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-static-top navbar-dark bg-dark">
+            <a class="navbar-brand" href="#"><strong>BULLRING</strong> Birmingham</a>
+        </nav>
+    </header>
+
+    <section id="affCarousel" class="carousel slide mb-5" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#affCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#affCarousel" data-slide-to="1"></li>
+            <li data-target="#affCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block" src="images/slide-3.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block" src="images/slide-2.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block" src="images/slide-4.jpg" alt="Third slide">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#affCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#affCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+
+        <section class="container text-center carousel-text">
+            <div class="event-brand">
+                <h1 class="display-3">Autumn<br />Fashion<br />Fix</h1>
+            </div>
+            <div class="event-date">
+                <p><span>23-26</span> September <span>2020</span></p>
+            </div>
+            <div class="event-info row">
+                <div class="col-12 text-center">
+                    <div class="countdown countdown-container container">
+                        <div class="clock row">
+                            <div class="clock-item clock-days countdown-time-value col-6 col-lg-3">
+                                <div class="wrap">
+                                    <div class="inner">
+                                        <div id="canvas-days" class="clock-canvas"></div>
+                                        <div class="text">
+                                            <p class="val">0</p>
+                                            <p class="type-days type-time">DAYS</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clock-item clock-hours countdown-time-value col-6 col-lg-3">
+                                <div class="wrap">
+                                    <div class="inner">
+                                        <div id="canvas-hours" class="clock-canvas"></div>
+                                        <div class="text">
+                                            <p class="val">0</p>
+                                            <p class="type-hours type-time">HOURS</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clock-item clock-minutes countdown-time-value col-6 col-lg-3">
+                                <div class="wrap">
+                                    <div class="inner">
+                                        <div id="canvas-minutes" class="clock-canvas"></div>
+                                        <div class="text">
+                                            <p class="val">0</p>
+                                            <p class="type-minutes type-time">MINUTES</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clock-item clock-seconds countdown-time-value col-6 col-lg-3">
+                                <div class="wrap">
+                                    <div class="inner">
+                                        <div id="canvas-seconds" class="clock-canvas"></div>
+                                        <div class="text">
+                                            <p class="val">0</p>
+                                            <p class="type-seconds type-time">SECONDS</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <main class="container">
+        <section class="row filter-row">
+            <div class="col-4">
+                <button id="aff-btn" class="btn btn-secondary">AFF</button>
+            </div>
+            <div class="col-4">
+                <button id="twitter-btn" class="btn btn-secondary"><i class="fab fa-twitter"></i> <span class="d-none d-md-inline">Twitter</span></button>
+            </div>
+            <div class="col-4">
+                <button id="ig-btn" class="btn btn-secondary"><i class="fab fa-instagram"></i> <span class="d-none d-md-inline">Instagram</span></button>
+            </div>
+        </section>
+        <section class="grid-sizer">
+            <div id="post-list" class="grid row">
+                <script id="post" type="text/x-handlebars-template">
+                    {{#items}}
+                        {{#eq this.service_slug 'twitter'}}
+                            <!-- Twitter Post -->
+                            <article class="col-12 col-md-4 grid-item twitter-post">
+                            
+                            <div class="card card-block text-center">
+                                <div class="post-type"><i class="fab fa-twitter"></i></div>
+                                <h4><a href="https://twitter.com/{{this.item_data.user.username}}" target="_blank">{{this.item_data.user.username}}</a></h4>
+                                <blockquote class="card-blockquote">
+                                <p>{{{parseTwitter this.item_data.tweet}}}</p>
+                                <footer>
+                                    <small>
+                                    {{formatDate this.item_published}}
+                                    </small>
+                                </footer>
+                                </blockquote>
+                            </div>
+                        </article>
+                        {{else eq this.service_slug 'instagram'}}
+                        <!-- IG Post -->
+                        <article class="col-12 col-md-4 grid-item instagram-post">
+                            <div class="card">
+                                <div class="post-type"><i class="fab fa-instagram"></i></div>
+                                <a href="{{this.item_data.link}}"><img class="card-img-top img-fluid" data-normal="{{this.item_data.link}}media/?size=l" alt="Card image cap"></a>
+                                <div class="card-block">
+                                    <h4><a href="https://instagram.com/{{this.item_data.user.username}}" target="_blank">{{this.item_data.user.username}}</a></h4>
+                                    <p class="card-text">{{{parseInstagram this.item_data.caption}}}</p>
+                                    <p class="card-text"><small class="text-muted">{{formatDate this.item_published}}</small></p>
+                                </div>
+                            </div>
+                        </article>
+                        {{else}}
+                        <!-- Manual Post -->
+                        <article class="col-12 col-md-4 grid-item manual-post">
+                            <div class="card">
+                                <div class="post-type">AFF</div>
+                                <a href="{{this.item_data.link}}" target="_blank">
+                                <!-- Images from http://aff-stream-bullring.383apps.co.uk/ not loading as in maintenance mode-->
+                                <!-- <img class="card-img-top img-fluid" src="{{this.item_data.image_url}}" alt="Card image cap"> -->
+                                <img class="card-img-top img-fluid" data-normal="https://placeimg.com/640/480/people" alt="Card image cap">
+                                </a>
+                                <div class="card-block">
+                                    <p class="card-text">{{this.item_data.text}}</p>
+                                    <div class="card-link text-center">
+                                        <a href="{{this.item_data.link}}" target="_blank">{{this.item_data.link_text}}</a>
+                                    </div>
+                                    <p class="card-text"><small class="text-muted text-center">{{formatDate this.item_published}}</small></p>
+                                </div>
+                            </div>
+                        </article>
+                        {{/eq}}
+                    {{/items}}
+                </script>
+            </div>
+            <div class="col-12 text-center">
+                <div class="loading">
+                    <i class="fa fa-sync fa-spin fa-3x fa-fw margin-bottom"></i>
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <br />
+                <button id="loadMoreButton" class="btn btn-primary">Load More</button>
+            </div>
+        </section>
+        <hr>
+        <footer>
+            <p>© Alex Ross 2020</p>
+        </footer>
+    </main> <!-- /container -->
+</body>
+</html>
