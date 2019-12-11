@@ -12,8 +12,7 @@ module.exports = {
     entry: ['./app/app.js', './app/scss/styles.scss'],
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'app.js',
-        publicPath: '/'
+        filename: 'app.js'
     },
     module: {
         rules: [
