@@ -36,8 +36,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server",
-    "build": "webpack --mode production"
+    "dev": "webpack-dev-server",
+    "build": "webpack --mode production",
+    "start": "node server.js",
+    "heroku-postbuild": "webpack -p"
   },
   "dependencies": {
     "copy-webpack-plugin": "^5.1.0",
