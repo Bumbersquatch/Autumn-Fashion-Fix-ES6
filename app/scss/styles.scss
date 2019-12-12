@@ -218,6 +218,18 @@ nav.navbar.bg-dark{
     }
 }
 
+body{
+    animation: fadeIn 2s linear;
+} 
+.grid-item{
+    animation: fadeIn 1s linear;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
 @include media-breakpoint-up(md) { 
     #affCarousel .event-info{
       width: 60%;
