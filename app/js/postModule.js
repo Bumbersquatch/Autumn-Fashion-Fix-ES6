@@ -231,7 +231,7 @@ const PostModule = {
                         _this.instagramFilter(data);
                     }
                 } else {
-                    this.createTemplate(this.s.currentData);
+                    this.createTemplate(data);
                 }
                 //increment page num
                 s.page++;
