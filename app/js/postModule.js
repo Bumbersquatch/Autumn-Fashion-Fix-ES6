@@ -1,6 +1,7 @@
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 import Layzr from 'layzr.js';
+import moment from 'moment';
 
 imagesLoaded.makeJQueryPlugin($);
 
@@ -35,7 +36,7 @@ const PostModule = {
         // Layzr - Lazy loading Images
         const instance = Layzr({
             normal: 'data-normal',
-            threshold: 0
+            threshold: 100
         });
 
         instance.update().check().handlers(true);
@@ -56,6 +57,7 @@ const PostModule = {
         });
 
         msnry.on('layoutComplete', () => {
+            console.log('layout complete');
             s.layzr.update().check();
             $('.btn-secondary').removeAttr('disabled');
             this.s.moreButton.removeAttr('disabled');
@@ -109,9 +111,7 @@ const PostModule = {
         });
 
         Handlebars.registerHelper('formatDate', function (date_raw) {
-            const date = new Date(date_raw);
-            const fd = date.toDateString();
-            return fd;
+            return moment(date_raw).format('dddd DD MMMM YYYY');
         });
     },
 
@@ -134,14 +134,17 @@ const PostModule = {
     filterPosts(type, btn) {
         const msnry = this.s.msnry;
         const $container = this.s.masonryContainer;
+        const currentHtml = this.s.currentHtml;
         //reset to show all posts before filtering
-        $container.html(this.s.currentHtml);
+        $container.html(currentHtml);
         msnry.reloadItems();
+        this.s.layzr.update().check();
         $('.btn-secondary').attr('disabled', 'disabled');
         if (btn.hasClass('active')) {
             btn.removeClass('active');
             this.s.currentFilter = null;
             msnry.layout();
+            
         } else {
             this.s.currentFilter = type;
             $('.filter-row .btn').removeClass('active');
@@ -176,17 +179,18 @@ const PostModule = {
 
                 //sorting json data, should be sorted from api 
                 data['items'].sort(function (a, b) {
-                    const dateA = new Date(a.item_published),
-                        dateB = new Date(b.item_published);
+                    const dateA = moment(a.item_published),
+                        dateB = moment(b.item_published);
                     return dateB - dateA;
                 });
 
                 const source = s.postItem.html();
                 const template = Handlebars.compile(source);
                 let html = template(data);
+                this.s.currentHtml.push(html);
                 html = $(html).hide();
                 $container.append(html);
-                this.s.currentHtml.push(html);
+                
 
                 $container.imagesLoaded(function () {
                     $(html).fadeIn();
