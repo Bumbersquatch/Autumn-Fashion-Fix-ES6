@@ -36,8 +36,7 @@ const PostModule = {
 
         // Layzr - Lazy loading Images
         const instance = Layzr({
-            normal: 'data-normal',
-            threshold: 100
+            normal: 'data-normal'
         });
 
         instance.update().check().handlers(true);
