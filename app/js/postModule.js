@@ -20,7 +20,8 @@ const PostModule = {
         layzr: null,
         masonryContainer: null,
         msnry: null,
-        currentHtml: []
+        currentData: {},
+        template: null
     },
 
     init() {
@@ -57,15 +58,9 @@ const PostModule = {
         });
 
         msnry.on('layoutComplete', () => {
-            console.log('layout complete');
             s.layzr.update().check();
             $('.btn-secondary').removeAttr('disabled');
             this.s.moreButton.removeAttr('disabled');
-        });
-
-        msnry.on('removeComplete', () => {
-            msnry.reloadItems();
-            msnry.layout();
         });
 
         this.s.masonryContainer = $(s.postList);
@@ -117,16 +112,20 @@ const PostModule = {
 
     bindUIActions() {
         const _this = this;
-        this.s.moreButton.on('click', function () {
+        this.s.moreButton.on('click', function (e) {
+            e.preventDefault();
             _this.getMorePosts();
         });
-        this.s.affFilterBtn.on('click', function () {
+        this.s.affFilterBtn.on('click', function (e) {
+            e.preventDefault();
             _this.filterPosts('aff', $(this));
         });
-        this.s.twitterFilterBtn.on('click', function () {
+        this.s.twitterFilterBtn.on('click', function (e) {
+            e.preventDefault();
             _this.filterPosts('twitter', $(this));
         });
-        this.s.igFilterBtn.on('click', function () {
+        this.s.igFilterBtn.on('click', function (e) {
+            e.preventDefault();
             _this.filterPosts('ig', $(this));
         });
     },
@@ -134,37 +133,71 @@ const PostModule = {
     filterPosts(type, btn) {
         const msnry = this.s.msnry;
         const $container = this.s.masonryContainer;
-        const currentHtml = this.s.currentHtml;
-        //reset to show all posts before filtering
-        $container.html(currentHtml);
-        msnry.reloadItems();
-        this.s.layzr.update().check();
+        const currentData = this.s.currentData;
+        $container.html('');
         $('.btn-secondary').attr('disabled', 'disabled');
         if (btn.hasClass('active')) {
             btn.removeClass('active');
             this.s.currentFilter = null;
+            this.createTemplate(currentData);
+            msnry.reloadItems();
             msnry.layout();
-            
         } else {
             this.s.currentFilter = type;
             $('.filter-row .btn').removeClass('active');
             btn.addClass('active');
             if (type === 'aff') {
-                msnry.remove($('.grid-item').not('.manual-post'));
+                this.manualFilter(currentData);
             }
             if (type === 'ig') {
-                msnry.remove($('.grid-item').not('.instagram-post'));
+                this.instagramFilter(currentData);
             }
             if (type === 'twitter') {
-                msnry.remove($('.grid-item').not('.twitter-post'));
+                this.twitterFilter(currentData);
             }
         }
+    },
+
+    twitterFilter(data) {
+        var newdata = {};
+        newdata.items = data.items.filter(function (item) {
+            return item.service_slug === 'twitter';
+        });
+        this.createTemplate(newdata);
+    },
+
+    instagramFilter(data) {
+        var newdata = {};
+        newdata.items = data.items.filter(function (item) {
+            return item.service_slug === 'instagram';
+        });
+        this.createTemplate(newdata);
+    },
+
+    manualFilter(data) {
+        var newdata = {};
+        newdata.items = data.items.filter(function (item) {
+            return item.service_slug === 'manual';
+        });
+        this.createTemplate(newdata);
+    },
+
+    createTemplate(data) {
+        const msnry = this.s.msnry;
+        const source = this.s.postItem.html();
+        const template = Handlebars.compile(source);
+        let html = template(data);
+        this.s.masonryContainer.append(html);
+        msnry.reloadItems();
+        msnry.layout();
+        this.s.layzr.update().check();
     },
 
     getMorePosts() {
         const s = this.s,
             num = this.s.numArticles,
             page = this.s.page;
+        const _this = this;
         this.s.loading.show();
         this.s.moreButton.attr('disabled', 'disabled');
         $.ajax({
@@ -174,48 +207,34 @@ const PostModule = {
                 numPosts: num
             },
             success: (data) => {
-                const msnry = s.msnry;
-                const $container = s.masonryContainer;
-
                 //sorting json data, should be sorted from api 
                 data['items'].sort(function (a, b) {
                     const dateA = moment(a.item_published),
                         dateB = moment(b.item_published);
                     return dateB - dateA;
                 });
-
-                const source = s.postItem.html();
-                const template = Handlebars.compile(source);
-                let html = template(data);
-                this.s.currentHtml.push(html);
-                html = $(html).hide();
-                $container.append(html);
-                
-
-                $container.imagesLoaded(function () {
-                    $(html).fadeIn();
-                    if (s.currentFilter !== null) {
-                        if (s.currentFilter === 'aff') {
-                            msnry.reloadItems();
-                            const $msnryItems = $('.grid-item').not('.manual-post');
-                            msnry.remove($msnryItems);
-                        }
-                        if (s.currentFilter === 'twitter') {
-                            msnry.reloadItems();
-                            const $msnryItems = $('.grid-item').not('.twitter-post');
-                            msnry.remove($msnryItems);
-                        }
-                        if (s.currentFilter === 'ig') {
-                            msnry.reloadItems();
-                            const $msnryItems = $('.grid-item').not('.instagram-post');
-                            msnry.remove($msnryItems);
-                        }
-                    } else {
-                        msnry.reloadItems();
-                        msnry.layout();
+                //set data
+                if (this.s.currentData.items) {
+                    this.s.currentData.items = [...this.s.currentData.items, ...data.items];
+                } else {
+                    this.s.currentData = data;
+                }
+                //filter results
+                if (s.currentFilter !== null) {
+                    if (s.currentFilter === 'aff') {
+                        _this.manualFilter(data);
                     }
-                    s.page++;
-                });
+                    if (s.currentFilter === 'twitter') {
+                        _this.twitterFilter(data);
+                    }
+                    if (s.currentFilter === 'ig') {
+                        _this.instagramFilter(data);
+                    }
+                } else {
+                    this.createTemplate(this.s.currentData);
+                }
+                //increment page num
+                s.page++;
             },
             error: (data) => {
                 console.log('error: ' + data);
