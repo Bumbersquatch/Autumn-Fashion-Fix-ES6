@@ -143,7 +143,7 @@
                         <article class="col-12 col-md-6 col-lg-4 grid-item instagram-post">
                             <div class="card">
                                 <div class="post-type"><i class="fab fa-instagram"></i></div>
-                                <a href="{{this.item_data.link}}"><img class="card-img-top img-fluid" data-normal="{{this.item_data.link}}media/?size=l" alt="Card image cap"></a>
+                                <a href="{{this.item_data.link}}"><img class="card-img-top img-fluid" src="./images/Gear-0.5s-108px.svg" data-normal="{{this.item_data.link}}media/?size=l" alt="Card image cap"></a>
                                 <div class="card-block">
                                     <h4><a href="https://instagram.com/{{this.item_data.user.username}}" target="_blank">{{this.item_data.user.username}}</a></h4>
                                     <p class="card-text">{{{parseInstagram this.item_data.caption}}}</p>
@@ -159,7 +159,7 @@
                                 <a href="{{this.item_data.link}}" target="_blank">
                                 <!-- Images from http://aff-stream-bullring.383apps.co.uk/ not loading as in maintenance mode-->
                                 <!-- <img class="card-img-top img-fluid" src="{{this.item_data.image_url}}" alt="Card image cap"> -->
-                                <img class="card-img-top img-fluid" data-normal="https://placeimg.com/640/480/people" alt="Card image cap">
+                                <img class="card-img-top img-fluid" src="./images/Gear-0.5s-108px.svg" data-normal="https://placeimg.com/640/480/people" alt="Card image cap">
                                 </a>
                                 <div class="card-block">
                                     <p class="card-text">{{this.item_data.text}}</p>
@@ -186,9 +186,15 @@
             </div>
         </section>
         <hr>
-        <footer>
-            <p>© Alex Ross 2020</p>
-        </footer>
+        <footer class="row credit">
+            <div class="col-6">
+              <p>© Alex Ross 2020<br/>
+              <a href="https://rosso.codes">https://rosso.codes</a></p>
+            </div>
+            <div class="col-6">
+              <p class="text-right"><img class="w-25" src="./images/es6.jpg" alt="Logo" /></p>
+            </div>
+          </footer>
     </main> <!-- /container -->
 </body>
 </html>
