@@ -3,7 +3,7 @@ import moment from 'moment';
 
 const VanillaCountdown = {
     init() {
-        this.registerHelpers();
+        const _this = this;
         const source = document.getElementById('countdown').innerHTML;
         const template = Handlebars.compile(source);
         let data = {
@@ -12,16 +12,12 @@ const VanillaCountdown = {
             minutes: 0,
             seconds: 0,
             variables,
-            loaded: false,
-            daysSVG: 'M -1.988435813787904 0.2147626933283259 A -2 -2 0 0 0 -1.2246467991473532e-16 2',
-            hoursSVG: [],
-            minutesSVG: [],
-            secondsSVG: '',
-            daysRadius: 0
+            daysSVG: '',
+            hoursSVG: '',
+            minutesSVG: '',
+            secondsSVG: ''
         }
-        
-        
-        
+
         setInterval(() => {
             const then = moment('23-09-2020', 'DD-MM-YYYY');
             const now = moment();
@@ -31,31 +27,29 @@ const VanillaCountdown = {
             data.minutes = countdown.format('mm');
             data.seconds = countdown.format('ss');
 
-            data.daysRadius = this.mapNumber(data.days, 365, 0, 0, 360);
+            const daysRadius = this.mapNumber(data.days, 365, 0, 0, 360);
             const hoursRadius = this.mapNumber(data.hours, 24, 0, 0, 360);
 	        const minutesRadius = this.mapNumber(data.minutes, 60, 0, 0, 360);
 	        const secondsRadius = this.mapNumber(data.seconds, 60, 0, 0, 360);
 
-            // data.daysSVG = this.describeArc(cdidiameter, cdidiameter, cdidiameter-2, 0, daysRadius);
-            // data.hoursSVG = this.describeArc(cdidiameter, cdidiameter, cdidiameter-2, 0, hoursRadius);
-            // data.minutesSVG = this.describeArc(cdidiameter, cdidiameter, cdidiameter-2, 0, minutesRadius);
-            // data.secondsSVG = this.describeArc(cdidiameter, cdidiameter, cdidiameter-2, 0, secondsRadius);
-
             let html = template(data);
             document.getElementById('countdown-container').innerHTML = html;
-        }, 1000)
-    },
 
-    registerHelpers() {
-        Handlebars.registerHelper('svgPath', function (radius) {
-            const el = document.getElementById('countdown-container').innerHTML;
-            console.log(el);
-            const ci = el.getElementsByClassName('countdown-item');
-            console.log('countdown item', ci);
-            const diameter = ci[0].clientWidth;
-            const cdidiameter = diameter / 2;
-            return this.describeArc(cdidiameter, cdidiameter, cdidiameter-2, 0, radius);
-        });
+            setTimeout(() => {
+                const el = document.querySelector('.countdown-item');
+                if (el) {
+                const cdidiameter = el.clientWidth / 2;
+                
+                data.daysSVG = _this.describeArc(cdidiameter, cdidiameter, cdidiameter-2, 0, daysRadius);
+                data.hoursSVG = _this.describeArc(cdidiameter, cdidiameter, cdidiameter-2, 0, hoursRadius);
+                data.minutesSVG = _this.describeArc(cdidiameter, cdidiameter, cdidiameter-2, 0, minutesRadius);
+                data.secondsSVG = _this.describeArc(cdidiameter, cdidiameter, cdidiameter-2, 0, secondsRadius);
+                
+                html = template(data);
+                document.getElementById('countdown-container').innerHTML = html;
+                }
+            }, 1);
+        }, 1000);
     },
 
     polarToCartesian(centerX, centerY, radius, angleInDegrees) {

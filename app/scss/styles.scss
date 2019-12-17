@@ -127,7 +127,12 @@ a, a:hover, a:visited, a:focus{
     .event-info{
         width:80%;
         margin-top: 20px;
+        animation: fadeIn 2s linear;
     }
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+      }
 }
 .navbar-brand{
     font-weight: 200;
