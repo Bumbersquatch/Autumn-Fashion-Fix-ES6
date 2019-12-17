@@ -49,57 +49,57 @@
             </div>
             <div class="event-info row">
                 <div class="col-12 text-center">
-                    <div class="countdown countdown-container container">
-                        <div class="clock row">
-                            <div class="clock-item clock-days countdown-time-value col-6 col-lg-3">
-                                <div class="wrap">
-                                    <div class="inner">
-                                        <div id="canvas-days" class="clock-canvas"></div>
-                                        <div class="text">
-                                            <p class="val">0</p>
-                                            <p class="type-days type-time">DAYS</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="clock-item clock-hours countdown-time-value col-6 col-lg-3">
-                                <div class="wrap">
-                                    <div class="inner">
-                                        <div id="canvas-hours" class="clock-canvas"></div>
-                                        <div class="text">
-                                            <p class="val">0</p>
-                                            <p class="type-hours type-time">HOURS</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="clock-item clock-minutes countdown-time-value col-6 col-lg-3">
-                                <div class="wrap">
-                                    <div class="inner">
-                                        <div id="canvas-minutes" class="clock-canvas"></div>
-                                        <div class="text">
-                                            <p class="val">0</p>
-                                            <p class="type-minutes type-time">MINUTES</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="clock-item clock-seconds countdown-time-value col-6 col-lg-3">
-                                <div class="wrap">
-                                    <div class="inner">
-                                        <div id="canvas-seconds" class="clock-canvas"></div>
-                                        <div class="text">
-                                            <p class="val">0</p>
-                                            <p class="type-seconds type-time">SECONDS</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="countdown-container" class="countdown countdown-container container">
+                        
                     </div>
+                    <script id="countdown" type="text/x-handlebars-template">
+                    <div class="clock row show">
+                        <div class="col-6 col-lg-3">
+                            <div class="countdown-item">
+                              <div class="content">
+                                <svg class="countdown-svg">
+                                  <path stroke="{{variables.accentcolor}}" d="{{svgPath daysradius}}" stroke-width="4" fill="none" />
+                                </svg>
+                                {{ days }}
+                                <span>days</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-6 col-lg-3">
+                            <div class="countdown-item">
+                              <div class="content">
+                                <svg class="countdown-svg">
+                                  <path stroke="{{variables.accentcolor}}" d="{{hoursSVG}}" stroke-width="4" fill="none" />
+                                </svg>
+                                {{ hours }}
+                                <span>hours</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-6 col-lg-3">
+                            <div class="countdown-item">
+                              <div class="content">
+                                <svg class="countdown-svg">
+                                  <path stroke="{{variables.accentcolor}}" d="{{minutesSVG}}" stroke-width="4" fill="none" />
+                                </svg>
+                                {{ minutes }}
+                                <span>minutes</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-6 col-lg-3">
+                            <div class="countdown-item">
+                              <div class="content">
+                                <svg class="countdown-svg">
+                                  <path stroke="{{variables.accentcolor}}" d="{{secondsSVG}}" stroke-width="4" fill="none" />
+                                </svg>
+                                {{ seconds }}
+                                <span>seconds</span>
+                              </div>
+                            </div>
+                          </div>
+                          </script>
+                    </script>
                 </div>
             </div>
         </section>
