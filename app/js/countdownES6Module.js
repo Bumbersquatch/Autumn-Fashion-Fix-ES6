@@ -40,10 +40,10 @@ const VanillaCountdown = {
                 if (el) {
                 const cdidiameter = el.clientWidth / 2;
                 
-                data.daysSVG = _this.describeArc(cdidiameter, cdidiameter, cdidiameter-2, 0, daysRadius);
-                data.hoursSVG = _this.describeArc(cdidiameter, cdidiameter, cdidiameter-2, 0, hoursRadius);
-                data.minutesSVG = _this.describeArc(cdidiameter, cdidiameter, cdidiameter-2, 0, minutesRadius);
-                data.secondsSVG = _this.describeArc(cdidiameter, cdidiameter, cdidiameter-2, 0, secondsRadius);
+                data.daysSVG = _this.describeArc(cdidiameter, cdidiameter, cdidiameter-2.8, 0, daysRadius);
+                data.hoursSVG = _this.describeArc(cdidiameter, cdidiameter, cdidiameter-2.8, 0, hoursRadius);
+                data.minutesSVG = _this.describeArc(cdidiameter, cdidiameter, cdidiameter-2.8, 0, minutesRadius);
+                data.secondsSVG = _this.describeArc(cdidiameter, cdidiameter, cdidiameter-2.8, 0, secondsRadius);
                 
                 html = template(data);
                 document.getElementById('countdown-container').innerHTML = html;
@@ -70,7 +70,7 @@ const VanillaCountdown = {
     
         var d = [
             "M", start.x, start.y, 
-            "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
+            "A", radius, radius, 0, largeArcFlag, 0, end.x + .1, end.y
         ].join(" ");
     
         return d;       
