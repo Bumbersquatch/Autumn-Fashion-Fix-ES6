@@ -15,7 +15,7 @@
     "handlebars": "^4.5.3",
     "html-loader": "^0.5.5",
     "imagesloaded": "^4.1.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jsdom": "^15.2.1",
     "kinetic": "^5.2.0",
     "layzr.js": "^2.2.2",
