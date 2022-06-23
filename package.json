@@ -16,7 +16,7 @@
     "html-loader": "^0.5.5",
     "imagesloaded": "^4.1.4",
     "jquery": "^3.4.1",
-    "jsdom": "^15.2.1",
+    "jsdom": "^16.5.0",
     "kinetic": "^5.2.0",
     "layzr.js": "^2.2.2",
     "masonry-layout": "^4.2.2",
