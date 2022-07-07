@@ -21,7 +21,7 @@
     "layzr.js": "^2.2.2",
     "masonry-layout": "^4.2.2",
     "mini-css-extract-plugin": "^0.8.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "node-sass": "^4.13.0",
     "popper.js": "^1.16.0",
     "postcss-loader": "^3.0.0",
